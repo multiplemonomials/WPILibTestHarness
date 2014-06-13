@@ -13,6 +13,12 @@ include(${CMAKE_ROOT}/Modules/CheckFunctionExists.cmake)
 include(${CMAKE_ROOT}/Modules/CheckIncludeFileCXX.cmake)
 include(${CMAKE_ROOT}/Modules/CheckIncludeFile.cmake)
 
+#control default install prefix, code is hardcoded to load files from /usr/share/WPILibTestHarness
+SET(WPIHARNESS_INSTALL_PREFIX "/usr" CACHE PATH "Prefix prepended to
+install directories")
+SET(CMAKE_INSTALL_PREFIX "${WPIHARNESS_INSTALL_PREFIX}" CACHE INTERNAL "Prefix
+prepended to install directories" FORCE)
+
 # The version number.
 set (CPR_VERSION_MAJOR 1)
 set (CPR_VERSION_MINOR 0)
