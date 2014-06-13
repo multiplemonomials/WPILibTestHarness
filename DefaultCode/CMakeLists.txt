@@ -8,4 +8,4 @@ add_executable(DefaultCode BuiltinDefaultCode.cpp)
 
 target_link_libraries(DefaultCode WPILibTestHarness)
 
-add_test(DefaultCode TestDefaultCode)
+add_test(TestDefaultCode DefaultCode)
