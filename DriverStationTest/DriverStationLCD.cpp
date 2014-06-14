@@ -11,17 +11,14 @@
 
 #define LineLength 21
 
-
-DriverStationLCD* DriverStationLCD::m_instance = NULL;
-
 /**
  * DriverStationLCD contructor.
  * 
  * This is only called once the first time GetInstance() is called
  */
 DriverStationLCD::DriverStationLCD()
-	: m_textBuffer (NULL)
-	, m_textBufferSemaphore (NULL)
+	: m_textBuffer(nullptr)
+	, m_textBufferSemaphore(0)
 {
 	m_textBuffer = new char[USER_DS_LCD_DATA_SIZE];
 	memset(m_textBuffer, ' ', USER_DS_LCD_DATA_SIZE);
@@ -29,27 +26,22 @@ DriverStationLCD::DriverStationLCD()
 	*((UINT16 *)m_textBuffer) = kFullDisplayTextCommand;
 
 	m_textBufferSemaphore = semMCreate(SEM_DELETE_SAFE | SEM_INVERSION_SAFE);
-
-	AddToSingletonList();
 }
 
 DriverStationLCD::~DriverStationLCD()
 {
 	semDelete(m_textBufferSemaphore);
 	delete [] m_textBuffer;
-	m_instance = NULL;
 }
 
 /**
  * Return a pointer to the singleton DriverStationLCD.
  */
-DriverStationLCD* DriverStationLCD::GetInstance()
+DriverStationLCD & DriverStationLCD::GetInstance()
 {
-	if (m_instance == NULL)
-	{
-		m_instance = new DriverStationLCD();
-	}
-	return m_instance;
+	static DriverStationLCD instance;
+
+	return instance;
 }
 
 /**
@@ -111,18 +103,18 @@ void DriverStationLCD::PrintfLine(Line line, const char *writeFmt, ...)
 	if (line < kMain_Line6 || line > kUser_Line6)
 		return;
 
-	va_start (args, writeFmt);
+	va_start(args, writeFmt);
 	{
 		Synchronized sync(m_textBufferSemaphore);
 		// snprintf appends NULL to its output.  Therefore we can't write directly to the buffer.
-		INT32 length = std::min( vsnprintf(lineBuffer, LineLength + 1, writeFmt, args), LineLength);
+		INT32 length = std::min(vsnprintf(lineBuffer, LineLength + 1, writeFmt, args), LineLength);
 		memcpy(m_textBuffer + line * LineLength + sizeof(UINT16), lineBuffer, length);
 
 		if (length < LineLength)
 			memset(m_textBuffer + line * LineLength + sizeof(UINT16) + length, ' ', LineLength - length);
 	}
 
-	va_end (args);
+	va_end(args);
 }
 
 

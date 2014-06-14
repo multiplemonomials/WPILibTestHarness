@@ -27,3 +27,22 @@ $ make test
 
 #if you are having a build error and want to see what commands cmake is running
 $ make VERBOSE=1```
+
+Use Instructions
+-----------------------------------------
+1. Create a different build configuration (or use a different setup entirely) that builds your robot code for x86(_64)
+
+2. Add to include paths:
+```/usr/include/wpiharness
+/usr/include/wpiharness/WPILib```
+
+3. Add to link libraries:
+```WPILibTestHarness
+wx_baseu-2.8
+wx_gtk2u_xrc-2.8
+wx_gtk2u_adv-2.8 
+wx_gtk2u_core-2.8```
+ (NOTE: the names of your wxwidgets libraries might be different, use wx-config to find them)
+
+4. Run the resultant executable
+

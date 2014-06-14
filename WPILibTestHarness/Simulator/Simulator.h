@@ -42,9 +42,13 @@ class SimulationWindow;
 class Simulator {
 public:
 
-	static Simulator * GetInstance()
+	bool isStarted = false;
+
+	static Simulator & GetInstance()
 	{
-		return Simulator::m_instance;
+		static Simulator instance;
+
+		return instance;
 	}
 	
 	/// \name API For Simulation data
@@ -54,13 +58,12 @@ public:
 
 	// step the simulation up a period of time (in seconds)
 	static void Wait(double tm){ NextStep(tm); }
-	static void NextStep(double tm) { m_instance->SimulateStep(tm); }
+	static void NextStep(double tm) { GetInstance().SimulateStep(tm); }
 
 	// get time for WPILib
-	static double GetTime() { 
-		if (Simulator::m_instance)
-			return Simulator::m_instance->m_time; 
-		return 0;
+	static double GetTime()
+	{
+		return GetInstance().m_time;
 	}
 	
 	// set LCD output data
@@ -98,7 +101,7 @@ public:
 	/// \name Simulation functions
 	/// @{
 	
-	static void StartSimulation(ControlInterface * controlInterface);
+	void StartSimulation(ControlInterface * controlInterface);
 	
 	/// @}
 	
@@ -106,9 +109,6 @@ private:
 
 	Simulator();
 	Simulator(ControlInterface * controlInterface);
-	
-	// singleton instance of this class
-	static Simulator * m_instance;
 	
 	void SimulateStep(double tm);
 	

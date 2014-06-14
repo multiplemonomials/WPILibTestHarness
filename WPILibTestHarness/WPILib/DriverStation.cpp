@@ -38,7 +38,7 @@ DriverStation::DriverStation()
 	m_controlData = new FRCControlData;
 	m_userControl = new char[USER_CONTROL_DATA_SIZE];
 	m_userStatus = new char[USER_STATUS_DATA_SIZE];
-	bzero(m_userStatus, USER_STATUS_DATA_SIZE);
+	memset(m_userStatus, USER_STATUS_DATA_SIZE, 0);
 
 	// initialize packet number and control words to zero;
 	m_controlData->packetIndex = 0;

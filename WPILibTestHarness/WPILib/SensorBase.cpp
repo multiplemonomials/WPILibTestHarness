@@ -55,7 +55,7 @@ void SensorBase::AddToSingletonList()
 void SensorBase::DeleteSingletons()
 {
 	SensorBase * next = m_singletonList;
-	while (next)
+	while(next)
 	{
 		SensorBase * tmp = next;
 		next = next->m_nextSingleton;
@@ -63,7 +63,7 @@ void SensorBase::DeleteSingletons()
 		delete tmp;
 	}
 
-	m_singletonList = NULL;
+	m_singletonList = nullptr;
 }
 
 /**

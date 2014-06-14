@@ -34,14 +34,14 @@ public:
 	static const UINT32 kAccumulatorChannels[kAccumulatorNumChannels];
 
 	AnalogChannel(UINT32 slot, UINT32 channel){
-		Simulator::GetInstance()->AddAnalogChannel(this, slot, channel);
+		Simulator::GetInstance().AddAnalogChannel(this, slot, channel);
 	}
 	explicit AnalogChannel(UINT32 channel){
-		Simulator::GetInstance()->AddAnalogChannel(this, SensorBase::GetDefaultAnalogModule(), channel);
+		Simulator::GetInstance().AddAnalogChannel(this, SensorBase::GetDefaultAnalogModule(), channel);
 	}
 	virtual ~AnalogChannel(){
-		if (Simulator::GetInstance())
-			Simulator::GetInstance()->DeleteAnalogChannel(this);
+		if (Simulator::GetInstance().isStarted)
+			Simulator::GetInstance().DeleteAnalogChannel(this);
 	}
 
 	AnalogModule *GetModule();

@@ -26,16 +26,16 @@ class DigitalInput : public DigitalSource {
 public:
 	explicit DigitalInput(UINT32 channel) : m_value(false)
 	{
-		Simulator::GetInstance()->AddDigitalInput(this, SensorBase::GetDefaultDigitalModule(), channel);
+		Simulator::GetInstance().AddDigitalInput(this, SensorBase::GetDefaultDigitalModule(), channel);
 	}
 	DigitalInput(UINT32 slot, UINT32 channel) : m_value(false)
 	{
-		Simulator::GetInstance()->AddDigitalInput(this, slot, channel);
+		Simulator::GetInstance().AddDigitalInput(this, slot, channel);
 	}
 	~DigitalInput()
 	{
-		if (Simulator::GetInstance())
-			Simulator::GetInstance()->DeleteDigitalInput(this);
+		if (Simulator::GetInstance().isStarted)
+			Simulator::GetInstance().DeleteDigitalInput(this);
 	}
 	
 	UINT32 Get() { return m_value ? 1 : 0; }

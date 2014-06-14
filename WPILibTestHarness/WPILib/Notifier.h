@@ -18,13 +18,13 @@ public:
 	Notifier(TimerEventHandler handler, void *param) :
 		m_handler(handler), m_param(param)
 	{
-		Simulator::GetInstance()->AddNotifier(this);
+		Simulator::GetInstance().AddNotifier(this);
 	}
 	
 	virtual ~Notifier()
 	{
-		if (Simulator::GetInstance())
-			Simulator::GetInstance()->DeleteNotifier(this);
+		if (Simulator::GetInstance().isStarted)
+			Simulator::GetInstance().DeleteNotifier(this);
 	}
 	
 	void StartSingle(double period){

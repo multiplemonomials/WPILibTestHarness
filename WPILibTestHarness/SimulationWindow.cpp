@@ -72,7 +72,7 @@ SimulationWindow::SimulationWindow(wxWindow *parent) :
 	m_simulationTimer(this, 1),
 	m_drawTimer(this, 2)
 {
-	srand(time(NULL));
+	srand(time(nullptr));
 
 	// initialize XRC elements..
 	wxXmlResource::Get()->LoadFrame(this, parent, wxT("SimulationWindow"));
@@ -459,7 +459,7 @@ void SimulationWindow::KillSimulation()
 // entrypoint for simulation thread
 wxThread::ExitCode SimulationWindow::Entry()
 {
-	Simulator::StartSimulation(&m_controlInterface);
+	Simulator::GetInstance().StartSimulation(&m_controlInterface);
 	
 	{
 		// exit gracefully, signaling the parent window

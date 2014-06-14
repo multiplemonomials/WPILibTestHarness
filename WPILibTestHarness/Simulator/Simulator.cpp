@@ -32,6 +32,7 @@
 void StartRobotClass();
 
 #include <vector>
+#include <iostream>
 using namespace std;
 
 #ifdef USE_MSVC_MEMORY_TRACING
@@ -40,28 +41,29 @@ using namespace std;
 #endif
 
 
-Simulator * Simulator::m_instance = NULL;
-
 Simulator::Simulator(ControlInterface * controlInterface) :
 	m_time(0),
 	m_controlInterface(controlInterface)
 {}
 
+Simulator::Simulator() :
+	Simulator(nullptr)
+{}
+
 // does not return until simulation is complete
 void Simulator::StartSimulation(ControlInterface * controlInterface)
 {
-	assert(!Simulator::m_instance);
-	
 	// create the simulator
-	Simulator::m_instance = new Simulator(controlInterface);
+	m_controlInterface = controlInterface;
+	isStarted = true;
 	StartRobotClass();
 		
 	// begin the simulation by calling into the user's code
-	RobotBase::startRobotTask(NULL);
+	RobotBase::startRobotTask(nullptr);
 	
-	// and then delete self when done
-	delete Simulator::m_instance;
-	Simulator::m_instance = NULL;
+	isStarted = false;
+
+	// we will be deleted along with every other static object
 }
 
 void Simulator::SimulateStep(double tm)
@@ -101,7 +103,7 @@ void Simulator::SimulateStep(double tm)
 
 bool Simulator::ShouldContinue()
 {
-	if (!Simulator::m_instance || Simulator::m_instance->m_controlInterface->exit_now)
+	if (!GetInstance().isStarted || GetInstance().m_controlInterface->exit_now)
 		return false;
 		
 	return true;

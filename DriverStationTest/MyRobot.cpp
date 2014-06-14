@@ -21,11 +21,11 @@ public:
 			
 			if (GetTime() - tm > 0.1)
 			{
-				DriverStationLCD * lcd = DriverStationLCD::GetInstance();
+				DriverStationLCD & lcd = DriverStationLCD::GetInstance();
 				
-				lcd->PrintfLine(DriverStationLCD::kMain_Line6, "Press select button");
+				lcd.PrintfLine(DriverStationLCD::kMain_Line6, "Press select button");
 				
-				lcd->PrintfLine(DriverStationLCD::kUser_Line2, 
+				lcd.PrintfLine(DriverStationLCD::kUser_Line2, 
 						"%d %d %d %d %d %d %d %d",
 						(int)m_ds->GetDigitalIn(1),
 						(int)m_ds->GetDigitalIn(2),
@@ -37,16 +37,16 @@ public:
 						(int)m_ds->GetDigitalIn(8)
 				);		
 								
-				lcd->PrintfLine(DriverStationLCD::kUser_Line3, "1: %.1f", 
+				lcd.PrintfLine(DriverStationLCD::kUser_Line3, "1: %.1f", 
 						m_ds->GetAnalogIn(1));
-				lcd->PrintfLine(DriverStationLCD::kUser_Line4, "2: %.1f", 
+				lcd.PrintfLine(DriverStationLCD::kUser_Line4, "2: %.1f", 
 						m_ds->GetAnalogIn(2));
-				lcd->PrintfLine(DriverStationLCD::kUser_Line5, "3: %.1f", 
+				lcd.PrintfLine(DriverStationLCD::kUser_Line5, "3: %.1f", 
 						m_ds->GetAnalogIn(3));
-				lcd->PrintfLine(DriverStationLCD::kUser_Line6, "4: %.1f", 
+				lcd.PrintfLine(DriverStationLCD::kUser_Line6, "4: %.1f", 
 						m_ds->GetAnalogIn(4));
 				
-				lcd->UpdateLCD();
+				lcd.UpdateLCD();
 				
 				tm = GetTime();
 			}

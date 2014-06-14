@@ -3,18 +3,9 @@ include_directories("WPILib")
 include_directories("VxWorks")
 
 
-file(GLOB wpiharness_SRC
+file(GLOB_RECURSE wpiharness_SRC
     "*.h"
     "*.cpp"
-    "Simulator/*.h"
-    "Simulator/*.cpp"
-    "VxWorks/*.h"
-    "WPILib/*.h"
-    "WPILib/*.cpp"
-    "WPILib/ChipObject/*.h"
-    "WPILib/ChipObject/*.cpp"
-    "WPILib/NetworkCommunication/*.h"
-    "WPILib/NetworkCommunication/*.cpp"
 )
 
 add_library(WPILibTestHarness ${wpiharness_SRC})
@@ -40,10 +31,41 @@ install(FILES ${vxworks_HEADERS} DESTINATION ${header_destination}/VxWorks)
 
 #collect all headers from Simulator dir
 file(GLOB simulator_HEADERS
-    "Simulator/*.h"
+    "EzLogger/*.h"
 )
 
-install(FILES ${simulator_HEADERS} DESTINATION ${header_destination}/Simulator)
+install(FILES ${simulator_HEADERS} DESTINATION ${header_destination}/EzLogger)
+
+#collect all headers from EzLogger dirs
+file(GLOB ezlogger_HEADERS
+    "EzLogger/*.h"
+)
+
+install(FILES ${ezlogger_HEADERS} DESTINATION ${header_destination}/EzLogger)
+
+file(GLOB ezlogger_HEADERS
+    "EzLogger/output/*.h"
+)
+
+install(FILES ${ezlogger_HEADERS} DESTINATION ${header_destination}/EzLogger)
+
+file(GLOB ezlogger_HEADERS
+    "EzLogger/output/formatters/*.h"
+)
+
+install(FILES ${ezlogger_HEADERS} DESTINATION ${header_destination}/EzLogger)
+
+file(GLOB ezlogger_HEADERS
+    "EzLogger/output/acceptors/*.h"
+)
+
+install(FILES ${ezlogger_HEADERS} DESTINATION ${header_destination}/EzLogger)
+
+file(GLOB ezlogger_HEADERS
+    "EzLogger/output/writers/*.h"
+)
+
+install(FILES ${ezlogger_HEADERS} DESTINATION ${header_destination}/EzLogger)
 
 
 #some additional headers

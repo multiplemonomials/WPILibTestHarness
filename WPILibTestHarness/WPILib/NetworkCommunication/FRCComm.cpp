@@ -2,12 +2,20 @@
 #include <VxWorks.h>
 #include "FRCComm.h"
 #include <Simulator/Simulator.h>
+#include "LogMacros.h"
 
 SEM_ID * packet_semaphore = NULL;
 
 int getControlData(FRCControlData *data, char *userData, int wait_ms)
 {
-	return Simulator::GetInstance()->GetControlData(data, userData);
+	//certain programs might have threads which keep going after the program is stopped and call down to this function
+	if(!Simulator::GetInstance().isStarted)
+	{
+		LOG_ROBOT_RECOVERABLE("Some thread in user code has a lifetime problem and tried to access control data when the robot was stopped")
+		return 0;
+	}
+
+	return Simulator::GetInstance().GetControlData(data, userData);
 }
 
 int setStatusData(float battery, UINT8 dsDigitalOut, const char *userData, int userDataLength, int wait_ms)
@@ -17,7 +25,7 @@ int setStatusData(float battery, UINT8 dsDigitalOut, const char *userData, int u
 
 int setUserDsLcdData(const char *userDsLcdData, int userDsLcdDataLength, int wait_ms)
 {
-	Simulator::GetInstance()->SetLCDData(userDsLcdData, userDsLcdDataLength);
+	Simulator::GetInstance().SetLCDData(userDsLcdData, userDsLcdDataLength);
 	return 0;
 }
 
@@ -28,28 +36,28 @@ void setNewDataSem(SEM_ID * sem)
 
 void setResyncSem(SEM_ID)
 {
-	assert(0 && "not implemented");
+	LOG_NOT_IMPLEMENTED
 }
 
 void signalResyncActionDone(void)
 {
-	assert(0 && "not implemented");
+	LOG_NOT_IMPLEMENTED
 }
 
 // this UINT32 is really a LVRefNum
 void setNewDataOccurRef(UINT32 refnum)
 {
-	assert(0 && "not implemented");
+	LOG_NOT_IMPLEMENTED
 }
 
 void setResyncOccurRef(UINT32 refnum)
 {
-	assert(0 && "not implemented");
+	LOG_NOT_IMPLEMENTED
 }
 
 void FRC_NetworkCommunication_getVersionString(char *version)
 {
-	assert(0 && "not implemented");
+	LOG_NOT_IMPLEMENTED
 }
 
 void PacketReady()

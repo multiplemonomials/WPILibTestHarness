@@ -28,7 +28,7 @@ void Solenoid::InitSolenoid()
  */
 Solenoid::Solenoid(UINT32 channel)
 {
-	Simulator::GetInstance()->AddSolenoid(this, GetDefaultSolenoidModule(), channel);
+	Simulator::GetInstance().AddSolenoid(this, GetDefaultSolenoidModule(), channel);
 	InitSolenoid();
 }
 
@@ -40,7 +40,7 @@ Solenoid::Solenoid(UINT32 channel)
  */
 Solenoid::Solenoid(UINT32 slot, UINT32 channel)
 {
-	Simulator::GetInstance()->AddSolenoid(this, slot, channel);
+	Simulator::GetInstance().AddSolenoid(this, slot, channel);
 	InitSolenoid();
 }
 
@@ -49,8 +49,8 @@ Solenoid::Solenoid(UINT32 slot, UINT32 channel)
  */
 Solenoid::~Solenoid()
 {
-	if (Simulator::GetInstance())
-		Simulator::GetInstance()->DeleteSolenoid(this);
+	if (Simulator::GetInstance().isStarted)
+		Simulator::GetInstance().DeleteSolenoid(this);
 }
 
 /**

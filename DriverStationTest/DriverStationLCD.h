@@ -24,7 +24,7 @@ public:
 	enum Line {kMain_Line6, kUser_Line2, kUser_Line3, kUser_Line4, kUser_Line5, kUser_Line6};
 
 	virtual ~DriverStationLCD();
-	static DriverStationLCD *GetInstance();
+	static DriverStationLCD & GetInstance();
 
 	void UpdateLCD();
 	void Printf(Line line, UINT32 startingColumn, const char *writeFmt, ...);
@@ -35,7 +35,6 @@ protected:
 
 private:
 	static void InitTask(DriverStationLCD *ds);
-	static DriverStationLCD *m_instance;
 	DISALLOW_COPY_AND_ASSIGN(DriverStationLCD);
 
 	char *m_textBuffer;

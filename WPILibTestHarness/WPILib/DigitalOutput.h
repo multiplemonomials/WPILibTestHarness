@@ -22,16 +22,16 @@ class DigitalOutput : SensorBase
 public:
 	explicit DigitalOutput(UINT32 channel) : m_value(false)
 	{
-		Simulator::GetInstance()->AddDigitalOutput(this, SensorBase::GetDefaultDigitalModule(), channel); 
+		Simulator::GetInstance().AddDigitalOutput(this, SensorBase::GetDefaultDigitalModule(), channel);
 	}
 	DigitalOutput(UINT32 slot, UINT32 channel) : m_value(false)
 	{
-		Simulator::GetInstance()->AddDigitalOutput(this, slot, channel); 
+		Simulator::GetInstance().AddDigitalOutput(this, slot, channel);
 	}
 	~DigitalOutput()
 	{
-		if (Simulator::GetInstance())
-			Simulator::GetInstance()->DeleteDigitalOutput(this); 
+		if (Simulator::GetInstance().isStarted)
+			Simulator::GetInstance().DeleteDigitalOutput(this);
 	}
 	
 	void Set(UINT32 value) { m_value = (value == 1); }
