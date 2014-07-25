@@ -60,7 +60,6 @@ private:
 	static void InitTask(DriverStation *ds);
 	static DriverStation *m_instance;
 	///< TODO: Get rid of this and use the semaphore signaling
-	//static const float kUpdatePeriod = 0.02;
 
 	void Run();
 

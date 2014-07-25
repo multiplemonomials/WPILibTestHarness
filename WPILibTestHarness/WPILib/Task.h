@@ -20,7 +20,8 @@ public:
 	static const UINT32 kDefaultPriority = 100;
 	static const INT32 kInvalidTaskID = -1;
 
-	Task(char* name, FUNCPTR function, INT32 priority = kDefaultPriority, UINT32 stackSize = 20000){
+	Task(const char* name, FUNCPTR function, INT32 priority = kDefaultPriority, UINT32 stackSize = 20000)
+	{
 		//JS: I know that strdup causes a warning on msvc, but it's the correct way on *nix.
 		//MS is being a bit hard-nosed about it anyway
 		m_taskName = strdup(name);

@@ -81,7 +81,7 @@ void Simulator::SimulateStep(double tm)
 
 	// send event
 	wxCommandEvent evt(EVT_ON_STEP, 42);
-	m_controlInterface->evtHandler->AddPendingEvent(evt);
+	m_controlInterface->evtHandler->GetEventHandler()->AddPendingEvent(evt);
 
 	// wait for next step
 	if (!m_controlInterface->exit_now)

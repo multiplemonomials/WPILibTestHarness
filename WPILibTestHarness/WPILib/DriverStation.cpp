@@ -22,23 +22,25 @@
 DriverStation* DriverStation::m_instance = NULL;
 
 /**
- * DriverStation contructor.
+ * DriverStation constructor.
  * 
  * This is only called once the first time GetInstance() is called
  */
 DriverStation::DriverStation()
-	: m_controlData (NULL)
-	, m_userControl (NULL)
-	, m_userStatus (NULL)
+	: m_controlData (nullptr)
+	, m_userControl (nullptr)
+	, m_userStatus (nullptr)
 	, m_digitalOut (0)
-	, m_batteryChannel (NULL)
+	, m_batteryChannel (nullptr)
 	, m_task ("DriverStation", (FUNCPTR)DriverStation::InitTask)
 	, m_dashboard(&m_userStatus)
 {
 	m_controlData = new FRCControlData;
 	m_userControl = new char[USER_CONTROL_DATA_SIZE];
 	m_userStatus = new char[USER_STATUS_DATA_SIZE];
-	bzero(m_userStatus, USER_STATUS_DATA_SIZE);
+
+	memset(m_userStatus, 0, USER_STATUS_DATA_SIZE);
+
 
 	// initialize packet number and control words to zero;
 	m_controlData->packetIndex = 0;

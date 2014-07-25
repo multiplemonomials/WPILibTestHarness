@@ -40,11 +40,10 @@ install(FILES ${vxworks_HEADERS} DESTINATION ${header_destination}/VxWorks)
 
 #collect all headers from Simulator dir
 file(GLOB simulator_HEADERS
-    "Simulator/*.h"
+    "EzLogger/*.h"
 )
 
 install(FILES ${simulator_HEADERS} DESTINATION ${header_destination}/Simulator)
-
 
 #some additional headers
 install(FILES WPILib/ChipObject/NiRio.h DESTINATION "${header_destination}/WPILib/ChipObject")

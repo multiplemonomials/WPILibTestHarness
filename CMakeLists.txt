@@ -35,6 +35,7 @@ set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g")
 
 set(header_destination "include/wpiharness")
 
+#deal with WxWidgets
 find_package(wxWidgets COMPONENTS core base xrc adv REQUIRED)
 
 check_include_file_cxx(sstream HAVE_SSTREAM)
