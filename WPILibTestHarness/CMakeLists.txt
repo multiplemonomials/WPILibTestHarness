@@ -19,7 +19,7 @@ file(GLOB wpiharness_SRC
 
 add_library(WPILibTestHarness ${wpiharness_SRC})
 
-target_link_libraries(WPILibTestHarness ${wxWidgets_LIBRARIES})
+target_link_libraries(WPILibTestHarness)
 
 install(TARGETS WPILibTestHarness DESTINATION lib)
 

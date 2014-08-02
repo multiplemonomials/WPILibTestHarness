@@ -260,6 +260,8 @@ void Simulator::DeletePWM(PWM * p)
 	{
 		DigitalModuleData &mod = m_controlInterface->simulationData.digitalModule[0];
 
+		//NOTE: pwm is null
+
 		for (size_t i = 0; i < DIGITAL_PWM_CHANNELS; i++)
 			if (mod.pwm[i].pwm == p)
 			{

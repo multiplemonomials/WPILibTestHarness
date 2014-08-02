@@ -6,6 +6,6 @@ include_directories("${PROJECT_SOURCE_DIR}/WPILibTestHarness/VxWorks")
 
 add_executable(DefaultCode BuiltinDefaultCode.cpp)
 
-target_link_libraries(DefaultCode WPILibTestHarness)
+target_link_libraries(DefaultCode WPILibTestHarness ${wxWidgets_LIBRARIES} ${Boost_LIBRARIES})
 
 add_test(TestDefaultCode DefaultCode)

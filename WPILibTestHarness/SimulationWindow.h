@@ -119,7 +119,7 @@ private:
 
 	// pwm displays
 	Slider					* m_slot1PWM[DIGITAL_PWM_CHANNELS];
-	Slider					* m_slot2PWM[DIGITAL_PWM_CHANNELS];
+	wxSlider					* m_slot2PWM[DIGITAL_PWM_CHANNELS];
 
 	// digital displays
 	TogglePanelButton		* m_slot1DIO[DIGITAL_IO_CHANNELS];

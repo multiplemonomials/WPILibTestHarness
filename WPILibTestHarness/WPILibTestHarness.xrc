@@ -857,7 +857,12 @@
 													<option>0</option>
 													<flag>wxALIGN_CENTER</flag>
 													<border>5</border>
-													<object class="unknown" name="m_pwm_2_1" />
+													<object class="wxSlider" name="m_pwm_2_1">
+														<min>-1</min>
+														<max>1</max>
+														<value>0</value>
+													</object>
+
 												</object>
 												<object class="sizeritem">
 													<option>0</option>

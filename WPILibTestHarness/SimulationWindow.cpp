@@ -28,6 +28,7 @@
 
 #include "SimulationWindow.h"
 #include "Simulator/Simulator.h"
+#include "LogMacros.h"
 
 #ifdef USE_MSVC_MEMORY_TRACING
 	// this enables advanced memory leak detection
@@ -72,7 +73,7 @@ SimulationWindow::SimulationWindow(wxWindow *parent) :
 	m_simulationTimer(this, 1),
 	m_drawTimer(this, 2)
 {
-	srand(time(NULL));
+	srand(time(nullptr));
 
 	// initialize XRC elements..
 	wxXmlResource::Get()->LoadFrame(this, parent, wxT("SimulationWindow"));
@@ -143,7 +144,7 @@ SimulationWindow::SimulationWindow(wxWindow *parent) :
 	wxXmlResource * xmlRes = wxXmlResource::Get();
 
 	// slot 1
-	for (size_t i = 0; i < ANALOG_IO_CHANNELS; i++)
+	for (int i = 0; i < ANALOG_IO_CHANNELS; i++)
 	{
 		m_slot1Analog[i] = new Slider(p, wxID_ANY, 0, 5, false);
 		xmlRes->AttachUnknownControl(
@@ -152,7 +153,7 @@ SimulationWindow::SimulationWindow(wxWindow *parent) :
 	}
 
 	// slot 2
-	for (size_t i = 0; i < ANALOG_IO_CHANNELS; i++)
+	for (int i = 0; i < ANALOG_IO_CHANNELS; i++)
 	{
 		m_slot2Analog[i] = new Slider(p, wxID_ANY, 0, 5, false);
 		xmlRes->AttachUnknownControl(
@@ -164,7 +165,7 @@ SimulationWindow::SimulationWindow(wxWindow *parent) :
 	// initialize pwm outputs
 
 	// slot 4
-	for (size_t i = 0; i < DIGITAL_PWM_CHANNELS; i++)
+	for (int i = 0; i < DIGITAL_PWM_CHANNELS; i++)
 	{
 		m_slot1PWM[i] = new Slider(p, wxID_ANY, -1, 1, true);
 		xmlRes->AttachUnknownControl(
@@ -173,16 +174,16 @@ SimulationWindow::SimulationWindow(wxWindow *parent) :
 	}
 
 	// slot 6
-	for (size_t i = 0; i < DIGITAL_PWM_CHANNELS; i++)
+	// HAHAHAHAHAHAHAHAHAAHAHAHAAHAH
+	// I'd been trying to fix this assert error for HOURS
+	// and then I realized: size_t = long on Linux
+	for (int i = 0; i < DIGITAL_PWM_CHANNELS; i++)
 	{
-		m_slot2PWM[i] = new Slider(p, wxID_ANY, -1, 1, true);
-		xmlRes->AttachUnknownControl(
-			wxString::Format(wxT("m_pwm_2_%d"), i+1), 
-			m_slot2PWM[i], p);
+		m_slot2PWM[i] = XRCCTRL(*this, wxString::Format(wxT("m_pwm_2_%d"), i+1), wxSlider);
 	}
 	
 	// slot 8 (solenoids)
-	for (size_t i = 0; i < SOLENOID_IO_CHANNELS; i++)
+	for (int i = 0; i < SOLENOID_IO_CHANNELS; i++)
 	{
 		m_solenoids[i] = new TogglePanelButton(p, wxID_ANY);
 		m_solenoids[i]->SetReadOnly(true);
@@ -195,7 +196,7 @@ SimulationWindow::SimulationWindow(wxWindow *parent) :
 	// initialize digital channels
 
 	// slot 4
-	for (size_t i = 0; i < DIGITAL_IO_CHANNELS; i++)
+	for (int i = 0; i < DIGITAL_IO_CHANNELS; i++)
 	{
 		m_slot1DIO[i] = new TogglePanelButton(p, wxID_ANY);
 		xmlRes->AttachUnknownControl(
@@ -207,7 +208,7 @@ SimulationWindow::SimulationWindow(wxWindow *parent) :
 	}
 
 	// slot 6
-	for (size_t i = 0; i < DIGITAL_IO_CHANNELS; i++)
+	for (int i = 0; i < DIGITAL_IO_CHANNELS; i++)
 	{
 		m_slot2DIO[i] = new TogglePanelButton(p, wxID_ANY);
 		xmlRes->AttachUnknownControl(
@@ -561,7 +562,7 @@ void SimulationWindow::OnDrawTimer(wxTimerEvent &event)
 		// pwm
 		for (size_t i = 0; i < DIGITAL_PWM_CHANNELS; i++)
 		{
-			m_slot2PWM[i]->SetEnabled( mod.pwm[i].pwm != NULL );
+			m_slot2PWM[i]->Enable(mod.pwm[i].pwm != nullptr);
 			m_slot2PWM[i]->SetValue( mod.pwm[i].speed );
 		}
 

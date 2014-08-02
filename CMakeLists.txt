@@ -38,10 +38,17 @@ set(header_destination "include/wpiharness")
 #deal with WxWidgets
 find_package(wxWidgets COMPONENTS core base xrc adv REQUIRED)
 
+#deal with Boost
+set(Boost_USE_STATIC_LIBS OFF) 
+set(Boost_USE_MULTITHREADED ON)  
+set(Boost_USE_STATIC_RUNTIME OFF) 
+find_package(Boost COMPONENTS date_time system REQUIRED) 
+
 check_include_file_cxx(sstream HAVE_SSTREAM)
 
 check_function_exists(fork HAVE_FORK)
 
+include_directories(${Boost_INCLUDE_DIRS})
 include("${wxWidgets_USE_FILE}")
 include_directories("${PROJECT_SOURCE_DIR}/WPILibTestHarness")
 
