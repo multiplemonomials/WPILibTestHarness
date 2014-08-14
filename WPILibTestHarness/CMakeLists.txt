@@ -40,7 +40,7 @@ install(FILES ${vxworks_HEADERS} DESTINATION ${header_destination}/VxWorks)
 
 #collect all headers from Simulator dir
 file(GLOB simulator_HEADERS
-    "EzLogger/*.h"
+    "Simulator/*.h"
 )
 
 install(FILES ${simulator_HEADERS} DESTINATION ${header_destination}/Simulator)

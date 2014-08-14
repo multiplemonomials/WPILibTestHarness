@@ -2,11 +2,16 @@
 #include <VxWorks.h>
 #include "FRCComm.h"
 #include <Simulator/Simulator.h>
+#include <LogMacros.h>
 
 SEM_ID * packet_semaphore = NULL;
 
 int getControlData(FRCControlData *data, char *userData, int wait_ms)
 {
+	if(Simulator::GetInstance() == nullptr)
+	{
+		LOG_ROBOT_RECOVERABLE("The robot tried to get contol data after the simulator stopped running")
+	}
 	return Simulator::GetInstance()->GetControlData(data, userData);
 }
 

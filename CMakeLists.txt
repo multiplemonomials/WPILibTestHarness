@@ -37,14 +37,15 @@ set(header_destination "include/wpiharness")
 
 #deal with WxWidgets
 find_package(wxWidgets COMPONENTS core base xrc adv REQUIRED)
+find_package(Boost COMPONENTS date_time system REQUIRED)
 
-check_include_file_cxx(sstream HAVE_SSTREAM)
-
-check_function_exists(fork HAVE_FORK)
+#set up path to look for eurointroduction
+set(CMAKE_REQUIRED_INCLUDES "/usr/eurointroduction")
+check_include_file_cxx(EzLogger/LogCore.h HAVE_EzLogger REQUIRED)
 
 include("${wxWidgets_USE_FILE}")
 include_directories("${PROJECT_SOURCE_DIR}/WPILibTestHarness")
 
 add_subdirectory("WPILibTestHarness")
 add_subdirectory("DefaultCode")
- 
+add_subdirectory("DriverStationTest") 
