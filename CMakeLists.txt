@@ -20,16 +20,15 @@ SET(CMAKE_INSTALL_PREFIX "${WPIHARNESS_INSTALL_PREFIX}" CACHE INTERNAL "Prefix
 prepended to install directories" FORCE)
 
 # The version number.
-set (CPR_VERSION_MAJOR 1)
-set (CPR_VERSION_MINOR 0)
+set (WPIHARNESS_VERSION_MAJOR 1)
+set (WPIHARNESS_VERSION_MINOR 0)
 
-#get wxWidgets build flags
-execute_process(COMMAND "wx-config --cppflags" OUTPUT_VARIABLE wx_CPPFLAGS)
+SET(wxWidgets_CONFIGURATION mswud)
 
 #enables debug flags
 SET(CMAKE_BUILD_TYPE relwithdebinfo)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} --std=gnu++11 -Wall -pthread ${wxWidgets_DEFINITIONS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} --std=gnu++11 -Wall -pthread")
 
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g")
 
