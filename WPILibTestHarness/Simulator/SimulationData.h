@@ -21,6 +21,7 @@
 #define SIMULATOR_SIMULATIONDATA_H
 
 #include <vector>
+#include <VxWorks.h>
 
 #define ANALOG_SLOT_1 	1
 #define ANALOG_SLOT_2 	2

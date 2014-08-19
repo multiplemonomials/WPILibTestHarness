@@ -36,7 +36,8 @@
 #endif
 
 
-DEFINE_EVENT_TYPE(EVT_ON_STEP)
+wxEventType EVT_ON_STEP = wxNewEventType();
+
 
 BEGIN_EVENT_TABLE(SimulationWindow, wxFrame)
 	EVT_CLOSE( SimulationWindow::OnClose )
@@ -179,7 +180,10 @@ SimulationWindow::SimulationWindow(wxWindow *parent) :
 	// and then I realized: size_t = long on Linux
 	for (int i = 0; i < DIGITAL_PWM_CHANNELS; i++)
 	{
-		m_slot2PWM[i] = XRCCTRL(*this, wxString::Format(wxT("m_pwm_2_%d"), i+1), wxSlider);
+		m_slot2PWM[i] = new Slider(p, wxID_ANY, -1, 1, true);
+		xmlRes->AttachUnknownControl(
+			wxString::Format(wxT("m_pwm_2_%d"), i+1), 
+			m_slot2PWM[i], p);
 	}
 	
 	// slot 8 (solenoids)

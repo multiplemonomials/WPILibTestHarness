@@ -64,7 +64,7 @@ public:
 	}
 	
 	// set LCD output data
-	void SetLCDData(const char * userDsLcdData, SIZE_T userDsLcdDataLength);
+	void SetLCDData(const char * userDsLcdData, size_t userDsLcdDataLength);
 	
 	// retrieves control information
 	int GetControlData(FRCControlData *data, char *userData);

@@ -21,7 +21,8 @@ DriverStationLCD* DriverStationLCD::m_instance = NULL;
  */
 DriverStationLCD::DriverStationLCD()
 	: m_textBuffer (NULL)
-	, m_textBufferSemaphore (NULL)
+	//semaphores are a pointer on VxWorks, but an int here
+	, m_textBufferSemaphore()
 {
 	m_textBuffer = new char[USER_DS_LCD_DATA_SIZE];
 	memset(m_textBuffer, ' ', USER_DS_LCD_DATA_SIZE);

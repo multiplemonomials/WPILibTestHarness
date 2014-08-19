@@ -39,7 +39,7 @@ private:
 
 };
 
-IMPLEMENT_APP(MyApp);
+IMPLEMENT_APP_CONSOLE(MyApp);
 
 bool MyApp::OnInit()
 {

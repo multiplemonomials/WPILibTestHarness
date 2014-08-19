@@ -18,6 +18,7 @@
 */
 
 #include "Simulator.h"
+#include "SimulationWindow.h"
 #include "ControlInterface.h"
 
 #include <WPILib/NetworkCommunication/FRCComm.h>
@@ -107,7 +108,7 @@ bool Simulator::ShouldContinue()
 	return true;
 }
 
-void Simulator::SetLCDData(const char * userDsLcdData, SIZE_T userDsLcdDataLength)
+void Simulator::SetLCDData(const char * userDsLcdData, size_t userDsLcdDataLength)
 {
 	wxMutexLocker mtx(m_controlInterface->lock);
 

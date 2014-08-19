@@ -8,6 +8,30 @@
 typedef int STATUS;
 typedef void (*FUNCPTR)(void*);
 
+//stuff to properly export stuff
+//see https://gcc.gnu.org/wiki/Visibility
+#ifdef WIN32
+	//use Win32 dllimport and dllexport
+	#ifdef BUILDING_WPIHARNESS_DLL
+		#define DLLTRANSPORT __declspec(dllexport)
+	#else
+		#define DLLTRANSPORT __declspec(dllimport)
+	#endif
+	#define DLLIMPORT __declspec(dllimport)
+	#define DLLPRIVATE
+#else
+	//use gcc visibility
+	#ifdef BUILDING_WPIHARNESS_DLL
+		#define DLLTRANSPORT __attribute__ ((visibility ("default")))
+	#else
+		#define DLLTRANSPORT
+	#endif
+	#define DLLIMPORT
+	#define DLLPRIVATE __attribute__ ((visibility ("hidden")))
+#endif
+	
+
+
 
 // this sucks
 
@@ -25,7 +49,22 @@ typedef signed short			INT16;
 typedef unsigned char			UINT8;
 typedef signed char			INT8;
 
-typedef size_t				SIZE_T;
+#elif defined(WIN32) && !defined(_MSC_VER) //MinGW
+
+#define UINT64 uint64_t
+#define INT64 int64_t
+#define UINT32 uint32_t
+#define INT32 int32_t
+#define UINT16 uint16_t
+#define INT16 int16_t
+#define UINT8 uint8_t
+#define INT8 int8_t
+
+#else //Visual C++
+
+//you can't define SIZE_T as size_t in MinGW because SIZE_T is used in some MinGW headers 
+#define size_t SIZE_T
+
 
 #endif
 

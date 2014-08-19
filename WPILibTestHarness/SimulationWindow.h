@@ -24,11 +24,13 @@
 #include <wx/joystick.h>
 #include <wx/spinctrl.h>
 #include "Simulator/ControlInterface.h"
+#include "VxWorks/VxWorks.h"
 
 #include "MotorDisplay.h"
 #include "Slider.h"
 #include "TogglePanelButton.h"
 
+extern wxEventType EVT_ON_STEP;
 
 class SimulationWindow : public wxFrame, public wxThreadHelper
 {
@@ -119,7 +121,7 @@ private:
 
 	// pwm displays
 	Slider					* m_slot1PWM[DIGITAL_PWM_CHANNELS];
-	wxSlider					* m_slot2PWM[DIGITAL_PWM_CHANNELS];
+	Slider					* m_slot2PWM[DIGITAL_PWM_CHANNELS];
 
 	// digital displays
 	TogglePanelButton		* m_slot1DIO[DIGITAL_IO_CHANNELS];

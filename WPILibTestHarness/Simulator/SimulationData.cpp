@@ -17,6 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "SimulationData.h"
 
 #include <WPILib/DigitalInput.h>
 #include <WPILib/DigitalOutput.h>
@@ -26,8 +27,6 @@
 #include <WPILib/PWM.h>
 #include <WPILib/AnalogChannel.h>
 #include <WPILib/Solenoid.h>
-
-#include "SimulationData.h"
 
 
 void EncoderInfo::Transfer()

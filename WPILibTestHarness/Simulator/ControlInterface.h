@@ -27,8 +27,6 @@
 
 #include "SimulationData.h"
 
-DECLARE_EVENT_TYPE(EVT_ON_STEP, -1)
-
 // 10ms default step size
 #define SIMULATOR_STEP_SIZE 0.01
 #define SIMULATOR_STEP_TIMER 10
