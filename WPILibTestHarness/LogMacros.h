@@ -22,7 +22,7 @@
 }
 
 #define LOG_INFO(args)																				\
-{						rsmith@crackofdawn.onmicrosoft.com																			\
+{																		\
 	std::shared_ptr<LogMessage> logMessage(new LogMessage({{"time", currentTime()}, {"severity", "Info"}}));	\
 	logMessage->stream() << args;\
 	LogCore::instance().log(logMessage); \
