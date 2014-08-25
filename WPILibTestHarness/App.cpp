@@ -99,17 +99,27 @@ bool MyApp::OnInit()
 				!wxXmlResource::Get()->Load(file.GetFullPath()))
 			{
 
-				// try the *nix install dir
-				file.Assign(wxT("/usr/share/WPILibTestHarness/WPILibTestHarness.xrc"));
-
+				// try the Windows install dir
+				file.Assign(wxT("C:\\MinGW\\share\\WPILibTestHarness\\WPILibTestHarness.xrc"));
+				
+				errorMessage << wxT("Looking for XRC file at location ") << file.GetPath() << wxEndl;
+				
 				if (!file.IsFileReadable() || 
-					!wxXmlResource::Get()->Load(file.GetFullPath()))
+				!wxXmlResource::Get()->Load(file.GetFullPath()))
 				{
-				
-					errorMessage << wxT("Looking for XRC file at location ") << file.GetPath() << wxEndl;
-				
-					wxMessageBox(errorMessage, wxT("Error finding XRC file"));
-					return false;
+
+					// try the *nix install dir
+					file.Assign(wxT("/usr/share/WPILibTestHarness/WPILibTestHarness.xrc"));
+
+					if (!file.IsFileReadable() || 
+						!wxXmlResource::Get()->Load(file.GetFullPath()))
+					{
+					
+						errorMessage << wxT("Looking for XRC file at location ") << file.GetPath() << wxEndl;
+					
+						wxMessageBox(errorMessage, wxT("Error finding XRC file"));
+						return false;
+					}
 				}
 			}
 		}
